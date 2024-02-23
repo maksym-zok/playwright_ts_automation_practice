@@ -4,6 +4,10 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  workflow_run:
+    workflows: ["New build"]
+    types:
+      - completed
 
 jobs:
   tests_e2e:
