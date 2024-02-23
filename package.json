@@ -1,0 +1,16 @@
+{
+  "name": "TS_playwright_VScodeExtension",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.39.0",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@types/node": "^20.9.0",
+    "@types/testing-library__jest-dom": "^6.0.0"
+  }
+}
