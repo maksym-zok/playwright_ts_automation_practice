@@ -10,6 +10,8 @@ on:
     workflows: ["New build"]
     types:
       - completed
+env:
+  CI: true
 
 jobs:
   tests_e2e:
