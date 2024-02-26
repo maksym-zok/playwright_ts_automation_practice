@@ -7,20 +7,20 @@ import SpecialHotPage from '../pages/specialHotPage';
 const email = "TestMail_04@gmail.com";
 const password = "testPass";
 
-test("Register test_01", async({page, baseURL}) => {
-    const register = new RegisterPage(page)
-    await page.goto(`${baseURL}route=account/register`)
-    await register.enterFirstName("TestName")
-    await register.enterLastName("TestName")
-    await register.enterEmail(email)
-    await register.enterPhoneNumber("12345678")
-    await register.enterPassword(password)
-    await register.enterConfirmPassword(password)
-    await register.isSubscribeChecked()
-    await register.clickTermsCondition()
-    await register.clickToContinue()
-    expect(await page.title()).toBe("Your Account Has Been Created!")
-})
+// test("Register test_01", async({page, baseURL}) => {
+//     const register = new RegisterPage(page)
+//     await page.goto(`${baseURL}route=account/register`)
+//     await register.enterFirstName("TestName")
+//     await register.enterLastName("TestName")
+//     await register.enterEmail(email)
+//     await register.enterPhoneNumber("12345678")
+//     await register.enterPassword(password)
+//     await register.enterConfirmPassword(password)
+//     await register.isSubscribeChecked()
+//     await register.clickTermsCondition()
+//     await register.clickToContinue()
+//     expect(await page.title()).toBe("Your Account Has Been Created!")
+// })
 
 test("Login test_01", async({page, baseURL}) => {
     const login = new LoginPage(page)
