@@ -13,7 +13,7 @@ RUN npm install
 RUN npm install --save-dev playwright
 RUN npx playwright install --with-deps
 # Запуск тестів і збереження звіту у вигляді HTML-файлу
-RUN npx playwright test --reporter=list,html=report.html || true
+RUN npx playwright test || true
 
 # Збереження report.html в артефактах GitHub Actions
 RUN mkdir /artifacts
