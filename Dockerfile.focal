@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/playwright:v1.24.0-focal
+FROM mcr.microsoft.com/playwright:v1.41.1-jammy
 USER root
 RUN mkdir /tests
 COPY . /tests
