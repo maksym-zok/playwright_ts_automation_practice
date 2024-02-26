@@ -24,8 +24,8 @@ jobs:
       #   run: npx playwright install --with-deps
       # - name: Run tests
       #   run: npx playwright test
-      - run: docker build . --file Dockerfile.focal -t testImage
-      - run: docker run -d --name testConatainer testImage
+      - run: docker build . --file Dockerfile.focal -t testimage
+      - run: docker run -d --name testconatainer testimage
       - run: sudo docker cp testConatainer:./tests/playwright-report playwright-report
         
 # jobs:
