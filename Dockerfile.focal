@@ -5,6 +5,15 @@ COPY . /tests
 WORKDIR /tests
 
 RUN npm install
-RUN npx @playwright/test install
-RUN npx playwright install-deps
+# RUN npx @playwright/test install
+# RUN npx playwright install-deps
+# RUN npx playwright test
+
+
+RUN npm install --save-dev playwright
+RUN npx playwright install --with-deps
 RUN npx playwright test
+
+# Додайте наступні рядки для відладки
+RUN ls -la
+RUN echo $PATH
