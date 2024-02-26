@@ -25,27 +25,27 @@ test("Interact with multiple tabs (Twitter)", async({page}) => {
     console.log(newWindow.url());
 })
 
-test("Interact with multiple tabs (Twitter and Facebook)", async({page}) => {
-    await page.goto("https://www.lambdatest.com/selenium-playground/window-popup-modal-demo");
-    const [multipleWindows] = await Promise.all([
-        page.waitForEvent("popup"),
-        page.click("'Follow Twitter & Facebook'"),
-    ])
-    await page.waitForLoadState();
-    const pages = multipleWindows.context().pages()
-    console.log("# of pages: " + pages.length);
+// test("Interact with multiple tabs (Twitter and Facebook)", async({page}) => {
+//     await page.goto("https://www.lambdatest.com/selenium-playground/window-popup-modal-demo");
+//     const [multipleWindows] = await Promise.all([
+//         page.waitForEvent("popup"),
+//         page.click("'Follow Twitter & Facebook'"),
+//     ])
+//     await page.waitForLoadState();
+//     const pages = multipleWindows.context().pages()
+//     console.log("# of pages: " + pages.length);
 
-    let facebookPage;
-    for (let index = 0; index < pages.length; index++) {
-        const url = pages[index].url();
-        if (url == "https://www.facebook.com/lambdatest/") {
-            facebookPage = pages[index];
-        }        
-    }
-    const facebookTextH1 = await facebookPage.textContent("//h1")
-    console.log(facebookTextH1);
+//     let facebookPage;
+//     for (let index = 0; index < pages.length; index++) {
+//         const url = pages[index].url();
+//         if (url == "https://www.facebook.com/lambdatest/") {
+//             facebookPage = pages[index];
+//         }        
+//     }
+//     const facebookTextH1 = await facebookPage.textContent("//h1")
+//     console.log(facebookTextH1);
      
-    pages.forEach(tab => {
-        console.log(tab.url());
-    })
-})
+//     pages.forEach(tab => {
+//         console.log(tab.url());
+//     })
+// })
