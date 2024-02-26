@@ -29,7 +29,11 @@ jobs:
       - run: docker build . --file Dockerfile.focal -t testimage
       - run: docker run -d --name testconatainer testimage
       - run: sudo docker cp testconatainer:./tests/playwright-report playwright-report
-        
+      - name: Save report as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-reports
+          path: /artifacts
 # jobs:
 #   test:
 #     timeout-minutes: 60
