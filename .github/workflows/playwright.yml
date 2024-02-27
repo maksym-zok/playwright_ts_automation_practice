@@ -26,6 +26,11 @@ jobs:
       - run: docker build . --file Dockerfile.focal -t testimage
       - run: docker run -d --name testconatainer testimage
       - run: sudo docker cp testconatainer:./tests/playwright-report playwright-report
+      - name: Upload report as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: playwright-report
+          path: playwright-report
         
 # jobs:
 #   test:
