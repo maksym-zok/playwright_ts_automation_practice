@@ -21,8 +21,8 @@ jobs:
         run: npm install
       # - name: Install tests
       #   run: npx @playwright/test install
-      - name: Install playwright browsers
-        run: npx playwright install --with-deps
+      # - name: Install playwright browsers
+      #   run: npx playwright install --with-deps
       - name: Run tests
         run: npx playwright test || true
       # - run: docker build . --file Dockerfile.focal -t testimage
