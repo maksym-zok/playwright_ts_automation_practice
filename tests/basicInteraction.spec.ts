@@ -27,10 +27,11 @@ test("Sum test", async({page}) => {
     await expect(sumResult).toHaveText("" + sum);
 })
 
-// test("Checkbox", async({page}) => {
-//     await page.goto("https://www.lambdatest.com/selenium-playground/checkbox-demo");
-//     const singleCheckbox = page.locator("id=isAgeSelected");
-//     expect(singleCheckbox).not.toBeChecked();
-//     await singleCheckbox.check();
-//     expect(singleCheckbox).toBeChecked();
-// })
+test("Checkbox", async({page}) => {
+    await page.goto("https://www.lambdatest.com/selenium-playground/checkbox-demo");
+    const singleCheckbox = page.locator("id=isAgeSelected");
+    expect(singleCheckbox).not.toBeChecked();
+    await singleCheckbox.check();
+    await page.waitForTimeout(3000);
+    await (expect(singleCheckbox).toBeChecked());
+})
