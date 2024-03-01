@@ -1,24 +1,22 @@
-import { test, expect } from '@playwright/test';
+import { expect, test, } from '../base/pomFixture';
+import * as data from "../test-data/addToCart-test-data.json"
 
-test("Login test demo", async({page}) => {
-    await page.goto("https://ecommerce-playground.lambdatest.io/");
-    await page.hover("//a[@data-toggle='dropdown']//span[contains(.,'My account')]");
-    await page.click("'Login'");
-    await page.fill("//input[@name='email']", "maksym.hlyva@gmail.com");
-    await page.fill("//input[@name='password']", "Pass123");
-    await page.click("input[value='Login']");
-    await expect(page).toHaveTitle('My Account')
+test("Register test_01", async({page, baseURL, registerPage}) => {
+    const randomNumber = Math.floor(Math.random() * 1000)
+    await page.goto(`${baseURL}route=account/register`)
+    await registerPage.enterFirstName(data.firstName)
+    await registerPage.enterLastName(data.secondName)
+    await registerPage.enterEmail(`TestMail_${randomNumber}@gmail.com`)
+    await registerPage.enterPhoneNumber(data.phoneNumber)
+    await registerPage.enterPassword(data.password)
+    await registerPage.enterConfirmPassword(data.password)
+    await registerPage.isSubscribeChecked()
+    await registerPage.clickTermsCondition()
+    await registerPage.clickToContinue()
+    expect(await page.title()).toBe("Your Account Has Been Created!")
 })
 
-test('Recorded login test', async ({ page }) => {
-    await page.goto('https://ecommerce-playground.lambdatest.io/');
-    await page.hover("//a[@data-toggle='dropdown']//span[contains(.,'My account')]");
-    await page.getByRole('link', { name: 'Login' }).click();
-    await page.getByPlaceholder('E-Mail Address').fill('maksym.hlyva@gmail.com');
-    await page.getByPlaceholder('Password').fill('Pass123');
-    await page.getByRole('button', { name: 'Login' }).click();
-    await expect(page).toHaveTitle('My Account')
-    await page.hover("//a[@data-toggle='dropdown']//span[contains(.,'My account')]");
-    await page.getByRole('link', { name: 'Logout', exact: true }).click();
-    await page.locator("//h1[contains(.,'Account Logout')]");
-  });
+test("Login test_01", async({page, baseURL, loginPage}) => {
+    await page.goto(`${baseURL}route=account/login`)
+    await loginPage.login(data.email, data.password)
+})
