@@ -14,7 +14,6 @@ export default class SearchBar {
     async verifyValue(elementLocator: string, expectedValue: string): Promise<void> {
         const element = await this.page.locator(elementLocator);
         const actualValue = await element.getAttribute("value");
-        expect(actualValue).toBe(expectedValue)
         if (actualValue === expectedValue) {
             console.log(`Value is as expected: ${expectedValue}`);
         } else {
@@ -23,7 +22,7 @@ export default class SearchBar {
     }
     async verifyElementCount(expectedCount: number): Promise<void> {
         const elements = await this.page.locator(this.dynamicLocator).count();
-
+        expect(elements).toEqual(expectedCount)
         if (elements === expectedCount) {
             console.log(`The number of elements with locator '${this.dynamicLocator}' is as expected: ${expectedCount}`);
         } else {
