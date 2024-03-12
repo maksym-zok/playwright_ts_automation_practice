@@ -14,7 +14,7 @@ export default class SearchBar {
     async verifyValue(elementLocator: string, expectedValue: string): Promise<void> {
         const element = await this.page.locator(elementLocator);
         const actualValue = await element.getAttribute("value");
-
+        expect(actualValue).toBe(expectedValue)
         if (actualValue === expectedValue) {
             console.log(`Value is as expected: ${expectedValue}`);
         } else {
