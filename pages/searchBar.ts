@@ -28,6 +28,7 @@ export default class SearchBar {
         } else {
             console.error(`Unexpected number of elements. Expected: ${expectedCount}, Actual: ${elements}`);
         }
+        expect(elements).toEqual(expectedCount)
     }
 
     async enterTextToSearchBar(text: string): Promise<void> {

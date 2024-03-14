@@ -16,7 +16,9 @@ test("Register test_01", async({page, baseURL, registerPage}) => {
     expect(await page.title()).toBe("Your Account Has Been Created!")
 })
 
-test("Login test_01", async({page, baseURL, loginPage}) => {
+test("Login test_01", async({page, baseURL, loginPage, homePage}) => {
+    // Open a Login page
     await page.goto(`${baseURL}route=account/login`)
-    await loginPage.login(data.email, data.password)
+    // Login
+    await loginPage.login(data.email, data.password, homePage)
 })

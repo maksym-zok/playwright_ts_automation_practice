@@ -14,6 +14,7 @@ export default class HomePage {
         readonly searchBarLocator: string;
         readonly mainBlockLocator: string;
         readonly footerLocator: string;
+        readonly wishlistLocator: Locator;
 
     constructor(public page: Page) {
         this.specialHotMenuButtonLocator = page.locator("(//*[contains(text(),' Special')]/../../../a)[2]");
@@ -29,9 +30,16 @@ export default class HomePage {
         this.searchBarLocator = "(//input[@name='search'])[1]";
         this.mainBlockLocator = "//div[@id='common-home']";
         this.footerLocator = "//footer[@class='footer']";
+        this.wishlistLocator = page.locator("//a[@aria-label='Wishlist']");
+    }
+    async clickOn(buttonLocator: string){
+        await Promise.all([
+            this.page.waitForNavigation(),
+            this.page.click(buttonLocator)
+        ])
     }
 
-    async navigateToPage(buttonLocator: Locator): Promise<void> {
+    async navigateTo(buttonLocator: Locator): Promise<void> {
         await buttonLocator.waitFor({ state: 'attached' });
         await buttonLocator.click();
         await this.page.waitForLoadState('domcontentloaded');
@@ -43,62 +51,23 @@ export default class HomePage {
         return classAttributeValue && classAttributeValue.includes(className) || false;
     }
 
-    async isElementPresent(locator: Locator, elementName: string): Promise<boolean> {
-        const elementLocator = await locator;
-        const isPresent = await elementLocator.isVisible();
+    async isElementPresent(locator: string, elementName: string): Promise<boolean> {
+        const elementLocator = await this.page.locator(locator);
+        const count = await elementLocator.count();
+        const isPresent = count > 0;
         return isPresent;
     }
 
-    private async verifyElementPresence(locator: Locator, elementName: string): Promise<void> {
+    async verifyElementPresence(locator: string, elementName: string): Promise<void> {
         const isElementPresent = await this.isElementPresent(locator, elementName);
         if (isElementPresent) {
             console.log(`${elementName} is present`);
         } else {
-            console.error(`${elementName} is absent`);
+            throw new Error(`${elementName} is absent`);
         }
     }
 
-    async verifyLogoPresence(): Promise<void> {
-        await this.verifyElementPresence(this.page.locator(this.logoSelector), 'Logo');
-    }
-
-    async verifyMainMenuPresence(): Promise<void> {
-        await this.verifyElementPresence(this.page.locator(this.mainMenuLocator), 'Main Menu');
-    }
-
-    async verifySearchBarPresence(): Promise<void> {
-        await this.verifyElementPresence(this.page.locator(this.searchBarLocator), 'Search Bar');
-    }
-
-    async verifyMainBlockPresence(): Promise<void> {
-        await this.verifyElementPresence(this.page.locator(this.mainBlockLocator), 'Main Block');
-    }
-
-    async verifyFooterPresence(): Promise<void> {
-        await this.verifyElementPresence(this.page.locator(this.footerLocator), 'Footer');
-    }
-
-    async navigateToHomePage() {
-        await this.navigateToPage(this.homeButtonLocator);
-    }
-
-    async navigateToSpecialHotPage() {
-        await this.navigateToPage(this.specialHotMenuButtonLocator);
-    }
-    
-    async navigateToBlogPage(){
-        await this.navigateToPage(this.blogButtonLocar);
-    }
-    async navigateToMyAccountPage(){
-        await this.navigateToPage(this.myAccountLocator);
-    }
-    async clickOnShopByCategoryButton(){
-        await this.shopByCategoryButtonLocator.click();
-    }   
-    async shopByCategoryMenuClosed(){
-        await this.hasClass(this.shopByCategoryMenuLocator, this.shopByCategoryMenuClosedLocator);
-    }
-    async shopByCategoryMenuOpened(){
-        await this.hasClass(this.shopByCategoryMenuLocator, this.shopByCategoryMenuOpenedLocator);
+    async shopByCategoryMenuState(expectedState: string) {
+        return await this.hasClass(this.shopByCategoryMenuLocator, expectedState);
     }
 }
