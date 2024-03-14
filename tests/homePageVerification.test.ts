@@ -40,7 +40,7 @@ test.describe('Checking the menu buttons in the header', () => {
         // Click on "My Account" button
         await homePage.navigateTo(homePage.myAccountLocator);
         // "My account" page is opened
-        expect (await page.waitForURL(`${baseURL}route=account/login`))
+        expect (await page.waitForURL(`${baseURL}route=account/loginSSSSSSSSSSSSS`))
     })
 
     test("'Shop by category' menu opening/closing", async({page, baseURL}) => {
