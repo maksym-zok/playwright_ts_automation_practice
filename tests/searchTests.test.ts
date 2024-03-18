@@ -1,11 +1,11 @@
 import { expect, test, } from '../base/pomFixture';
-import HomePage from "../pages/homePage.ts";
 import SearchBar from "../pages/searchBar.ts"
+import * as Var from "../test-data/variables.ts";
 
-test ("Search for a Product 'iPod'", async({page,baseURL}) => {
+test ("Search for a Product 'iPod'", async({page}) => {
     const searchBar = new SearchBar(page, "iPod");
     // Open a home page
-    await page.goto(`${baseURL}route=common/home`);
+    await page.goto(Var.homeURL);
     // Enter "iPod" in the search bar.
     await searchBar.enterTextToSearchBar("iPod");
     // Click the search button.

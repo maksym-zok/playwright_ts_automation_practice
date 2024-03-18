@@ -1,6 +1,7 @@
 import { Page } from "@playwright/test";
 import {expect, test} from '../base/pomFixture';
 import HomePage from "../pages/homePage.ts";
+// import { verifyElementPresence } from "../utils/commonFunctions";
 export default class LoginPage {
     readonly logOutButtonLocator: string;
     readonly logInButtonLocator: string;

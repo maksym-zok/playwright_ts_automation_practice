@@ -1,52 +1,46 @@
 import { expect, test, } from '../base/pomFixture';
-import HomePage from "../pages/homePage.ts";
+import * as Var from "../test-data/variables.ts";
 
 test.describe('Checking the menu buttons in the header', () => {
 
-    test("Navigate to Special hot page from Home page", async ({ page, baseURL }) => {
-        const homePage = new HomePage(page);
+    test("Navigate to Special hot page from Home page", async ({ page, homePage}) => {
         // Open a home page
-        await page.goto(`${baseURL}route=common/home`)
+        await page.goto(Var.homeURL)
         // Click on "Special Hot" button
         await homePage.navigateTo(homePage.specialHotMenuButtonLocator);
         // "Special Hot" page is opened
-        expect (await page.waitForURL(`${baseURL}route=product/special`))
+        expect (await page.waitForURL(Var.specialHotURL))
     })
 
-    test("Navigate to Home page from Special Hot page", async ({ page, baseURL }) => {
-        const homePage = new HomePage(page);
+    test("Navigate to Home page from Special Hot page", async ({ page, homePage}) => {
         // Open a "Special Hot"
-        await page.goto(`${baseURL}route=product/special`)
+        await page.goto(Var.specialHotURL);
         // Click on "Home" button
         await homePage.navigateTo(homePage.homeButtonLocator);
         // "Home" page is opened
-        expect (await page.waitForURL(`${baseURL}route=common/home`))
+        expect (await page.waitForURL(Var.homeURL));
     })
 
-    test("Navigate to Blog page from Home page", async ({ page, baseURL }) => {
-        const homePage = new HomePage(page);
+    test("Navigate to Blog page from Home page", async ({ page, homePage}) => {
         // Open a "Home" page
-        await page.goto(`${baseURL}route=common/home`)
+        await page.goto(Var.homeURL);
         // Click on "Blog" button
         await homePage.navigateTo(homePage.blogButtonLocar);
         // "Blog" page is opened
-        expect (await page.waitForURL(`${baseURL}route=extension/maza/blog/home`))
+        expect (await page.waitForURL(Var.blogURL));
     })
-
-    test("Navigate to My account page from Home page", async ({ page, baseURL }) => {
-        const homePage = new HomePage(page);
+    test("Navigate to My account page from Home page", async ({ page, homePage}) => {
         // Open a "Home" page
-        await page.goto(`${baseURL}route=common/home`)
+        await page.goto(Var.homeURL)
         // Click on "My Account" button
         await homePage.navigateTo(homePage.myAccountLocator);
-        // "My account" page is opened
-        expect (await page.waitForURL(`${baseURL}route=account/login`))
+        // Login page is opened
+        expect (await page.waitForURL(Var.loginURL));
     })
 
-    test("'Shop by category' menu opening/closing", async({page, baseURL}) => {
-        const homePage = new HomePage(page);
+    test("'Shop by category' menu opening/closing", async({page, homePage}) => {
         // Open a "Home" page
-        await page.goto(`${baseURL}route=common/home`);
+        await page.goto(Var.homeURL);
         // Verify that "Shop by category" menu is closed
         await homePage.shopByCategoryMenuState(homePage.shopByCategoryMenuClosedLocator);
         // Open "Shop by category" menu
@@ -56,8 +50,7 @@ test.describe('Checking the menu buttons in the header', () => {
     })
 })
 
-test("Verify Homepage Elements", async({page, baseURL}) =>{
-    const homePage = new HomePage(page);
+test("Verify Homepage Elements", async({page, baseURL, homePage}) =>{
     // Open a "Home" page
     await page.goto(`${baseURL}route=common/home`);
     // Verify the presence of the logo.
