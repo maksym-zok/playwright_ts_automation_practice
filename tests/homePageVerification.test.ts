@@ -35,9 +35,8 @@ test.describe('Checking the menu buttons in the header', () => {
         // Click on "My Account" button
         await homePage.navigateTo(homePage.myAccountLocator);
         // "My account" page is opened
-        expect (await page.waitForURL((Var.loginURL))
+        expect (await page.waitForURL(Var.loginURL))
     })
-
     test("'Shop by category' menu opening/closing", async({page, homePage}) => {
         // Open a "Home" page
         await page.goto(Var.homeURL);
@@ -50,17 +49,17 @@ test.describe('Checking the menu buttons in the header', () => {
     })
 })
 
-test("Verify Homepage Elements", async({page, baseURL, homePage}) =>{
+test("Verify Homepage Elements", async({page, homePage, commonFunctions}) =>{
     // Open a "Home" page
-    await page.goto(`${baseURL}route=common/home`);
+    await page.goto(Var.homeURL);
     // Verify the presence of the logo.
-    await homePage.verifyElementPresence(homePage.logoSelector, 'Logo');
+    await commonFunctions.verifyElementPresence(homePage.logoSelector, 'Logo');
     // Verify the visibility of the main menu.
-    await homePage.verifyElementPresence(homePage.mainMenuLocator, 'Main Menu');
+    await commonFunctions.verifyElementPresence(homePage.mainMenuLocator, 'Main Menu');
     // Check if the search bar is present.
-    await homePage.verifyElementPresence(homePage.searchBarLocator, 'Search Bar');
+    await commonFunctions.verifyElementPresence(homePage.searchBarLocator, 'Search Bar');
     // Check for the main block of the home page
-    await homePage.verifyElementPresence(homePage.mainBlockLocator, 'Main Block');
+    await commonFunctions.verifyElementPresence(homePage.mainBlockLocator, 'Main Block');
     // Check if the footer is present.
-    await homePage.verifyElementPresence(homePage.footerLocator, 'Footer');
+    await commonFunctions.verifyElementPresence(homePage.footerLocator, 'Footer');
 })

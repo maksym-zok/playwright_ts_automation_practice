@@ -1,26 +1,27 @@
 import { Page, Locator,} from "@playwright/test";
 import {expect, test } from '../base/pomFixture';
 import HomePage from "../pages/homePage";
-import {performWishlistClickAction} from "../utils/commonFunctions";
+import CommonFunctions from "../utils/commonFunctions";
 
 export default class WishListPage {
     readonly removeItemFromWishListButton
     readonly addItemToCardButton
     readonly wishListItemsTable
-    constructor(private page: Page, productName: string) {
+    readonly htcTouchHDProductlocator
+    constructor(private page: Page) {
         this.removeItemFromWishListButton = "//a[@title='Remove' or @data-original-title='Remove']"
         this.addItemToCardButton = "//button[@title='Add to Cart' or @data-original-title='Add to Cart']"
-        this.wishListItemsTable = `//div[@class="table-responsive"]`
+        this.wishListItemsTable = "//div[@class='table-responsive']"
+        this.htcTouchHDProductlocator = `${this.wishListItemsTable}//a[contains(text(),'HTC Touch HD')]`
     }
 
     async removeAllItemsWithNameFromWishList(productName) {
-        await performWishlistClickAction(this.page, `//a[contains(text(),'${productName}')]/../../td${this.removeItemFromWishListButton}`);
+        const commonFunctions = new CommonFunctions(this.page)
+        await commonFunctions.performTableClickAction(`//a[contains(text(),'${productName}')]/../../td${this.removeItemFromWishListButton}`);
     }
 
-    async addAllItemsWithNameToCart(productName) {
-        await performWishlistClickAction(this.page, `//a[contains(text(),'${productName}')]/../../td${this.addItemToCardButton}`);
+    async verifyElementPresenceInWishList(productName){
+        const commonFunctions = new CommonFunctions(this.page)
+        await commonFunctions.verifyElementPresence(`${this.wishListItemsTable}//a[contains(text(),'${productName}')]`, `${productName}`)
     }
-    // async verifyElementPresence(){
-    //     (`${this.wishListItemsTable}//a[contains(text(),'${productName}')]`, `${productName}`)
-    // }
 }

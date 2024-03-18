@@ -51,22 +51,6 @@ export default class HomePage {
         return classAttributeValue && classAttributeValue.includes(className) || false;
     }
 
-    async isElementPresent(locator: string, elementName: string): Promise<boolean> {
-        const elementLocator = await this.page.locator(locator);
-        const count = await elementLocator.count();
-        const isPresent = count > 0;
-        return isPresent;
-    }
-
-    async verifyElementPresence(locator: string, elementName: string): Promise<void> {
-        const isElementPresent = await this.isElementPresent(locator, elementName);
-        if (isElementPresent) {
-            console.log(`${elementName} is present`);
-        } else {
-            throw new Error(`${elementName} is absent`);
-        }
-    }
-
     async shopByCategoryMenuState(expectedState: string) {
         return await this.hasClass(this.shopByCategoryMenuLocator, expectedState);
     }

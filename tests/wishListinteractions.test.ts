@@ -12,9 +12,9 @@ test.describe("Basic Wishlist actions", () => {
         // Open a Login page
         await page.goto(Var.loginURL);
         // Login
-        await loginPage.login(data.email, data.password, homePage);
+        await loginPage.login(data.email, data.password);
         // Verify that user is logged in
-        await loginPage.verifyUserState(page, loginPage.logOutButtonLocator, 'loggedIn');
+        await loginPage.verifyUserState(loginPage.logOutButtonLocator, 'loggedIn');
         // User navigates to Wishlist page
         await homePage.navigateTo(homePage.wishlistLocator);
     })
@@ -22,15 +22,15 @@ test.describe("Basic Wishlist actions", () => {
         // Open a Wishlist page
         await page.goto(Var.wishlistURL);
         // Verify that user is logged out
-        await loginPage.verifyUserState(page, loginPage.logInButtonLocator, 'loggedOut');
+        await loginPage.verifyUserState(loginPage.logInButtonLocator, 'loggedOut');
         // User is redirected to Login page
         await expect(page).toHaveURL(Var.loginURL) ;
     })
-    test("Adding 'HTC Touch HD' product from Desktop category to wishlist", async({page, loginPage, homePage, specialHotPage, wishListPage}) => {
+    test("Adding 'HTC Touch HD' product from Desktop category to wishlist", async({page, loginPage, homePage, specialHotPage, wishListPage, commonFunctions}) => {
         // Open a Login page
         await page.goto(Var.loginURL);
         // Login
-        await loginPage.login(data.email, data.password, homePage);
+        await loginPage.login(data.email, data.password);
         // Navigate to Special Hot Menu Page
         await homePage.navigateTo(homePage.specialHotMenuButtonLocator)
         // Click on Desktop category
@@ -40,9 +40,8 @@ test.describe("Basic Wishlist actions", () => {
         // Wishlist popUp appeared
         await specialHotPage.isPopUpVisiable(specialHotPage.wishListPopUpLocator);
         // Open a Wishlist page
-        // await homePage.navigateTo(homePage.wishlistLocator);
         await page.goto(Var.wishlistURL);
-
-        // await homePage.verifyElementPresence("//div[@class='table-responsive']//a[contains(text(),'HTC Touch HD')]", 'HTC')
+        // Verify that item has beed added to the wishlist
+        await wishListPage.verifyElementPresenceInWishList("HTC Touch HD")
     });
 })

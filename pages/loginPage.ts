@@ -1,7 +1,7 @@
 import { Page } from "@playwright/test";
 import {expect, test} from '../base/pomFixture';
 import HomePage from "../pages/homePage.ts";
-// import { verifyElementPresence } from "../utils/commonFunctions";
+import CommonFunctions from "../utils/commonFunctions";
 export default class LoginPage {
     readonly logOutButtonLocator: string;
     readonly logInButtonLocator: string;
@@ -17,7 +17,8 @@ export default class LoginPage {
     this.passwordInputBox = "#input-password";
     }
     
-    async login(email: string, password: string, homePage: HomePage){
+    async login(email: string, password: string){
+        const homePage = new HomePage(this.page);
         await this.enterInputValue(this.emailInputBox, email);
         await this.enterInputValue(this.passwordInputBox, password);
         await homePage.clickOn(this.loginButtonFromLoginForm)
@@ -26,10 +27,11 @@ export default class LoginPage {
     async enterInputValue(selector: string, value: string) {
         await this.page.fill(selector, value);
     }
-    async verifyUserState(page, locator: string, expectedState: string) {
-        const homePage = new HomePage(page);
+    async verifyUserState(locator: string, expectedState: string) {
+        const homePage = new HomePage(this.page);
+        const commonFunctions = new CommonFunctions(this.page);
         const elementName = expectedState === 'loggedIn' ? 'Logout button' : 'Login button';
         const locatorToCheck = expectedState === 'loggedIn' ? locator : this.logInButtonLocator;
-        await homePage.verifyElementPresence(locatorToCheck, elementName);
+        await commonFunctions.verifyElementPresence(locatorToCheck, elementName);
     }
 }
