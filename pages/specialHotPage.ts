@@ -19,7 +19,7 @@ export default class SpecialHotPage {
         readonly addToCartPopUpLocator: string;
         readonly notificationPopUp: string;
 
-    constructor(public page: Page, productName: string){
+    constructor(public page: Page){
         this.desktopCategoryLocator = page.locator("(//a[contains(text(),'Desktops')])[3]");
         this.laptopsCategoryLocator = page.locator("(//a[contains(text(),'Laptops')])[3]");
         this.componentsCategoryLocator = page.locator("(//a[contains(text(),'Components')])[3]");
