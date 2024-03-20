@@ -8,7 +8,7 @@ test.afterEach(async({page, wishListPage}) => {
 });
 
 test.describe("Basic Wishlist actions", () => {
-    test("Wishlist opens when user is logged in", async({page, loginPage, homePage}) => {
+    test("Wishlist opens when user is logged in", async({page, loginPage, homePage, commonFunctions}) => {
         // Open a Login page
         await page.goto(Var.loginURL);
         // Login
@@ -16,7 +16,7 @@ test.describe("Basic Wishlist actions", () => {
         // Verify that user is logged in
         await loginPage.verifyUserState(loginPage.logOutButtonLocator, 'loggedIn');
         // User navigates to Wishlist page
-        await homePage.navigateTo(homePage.wishlistLocator);
+        await commonFunctions.navigateTo(homePage.wishlistLocator);
     })
     test("Rediraction from 'Wishlist' page to 'Login' page when user is not logged in", async({page, loginPage}) => {
         // Open a Wishlist page
@@ -32,9 +32,9 @@ test.describe("Basic Wishlist actions", () => {
         // Login
         await loginPage.login(data.email, data.password);
         // Navigate to Special Hot Menu Page
-        await homePage.navigateTo(homePage.specialHotMenuButtonLocator)
+        await commonFunctions.navigateTo(homePage.specialHotMenuButtonLocator)
         // Click on Desktop category
-        await homePage.navigateTo(specialHotPage.desktopCategoryLocator);
+        await commonFunctions.navigateTo(specialHotPage.desktopCategoryLocator);
         // Add a Product HTC Touch HD to Wishlist
         await specialHotPage.addAProductWithNameTo("HTC Touch HD", specialHotPage.productAddToWishListButton);
         // Wishlist popUp appeared

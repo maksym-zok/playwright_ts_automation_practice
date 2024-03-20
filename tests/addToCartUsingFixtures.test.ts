@@ -8,15 +8,15 @@ test.afterEach(async({page, addToCartPage}) => {
 });
 
 test.describe("Basic Add to Cart actions", () => {
-    test("Add to cart test_01", async({page, loginPage, homePage, specialHotPage, addToCartPage}) => {
+    test("Add to cart test_01", async({page, loginPage, homePage, specialHotPage, addToCartPage, commonFunctions}) => {
         // Open a Login page
         await page.goto(Var.loginURL);
         // Login
         await loginPage.login(data.email, data.password);
         // Navigate to Special Hot Menu Page
-        await homePage.navigateTo(homePage.specialHotMenuButtonLocator);
+        await commonFunctions.navigateTo(homePage.specialHotMenuButtonLocator);
         // Click on Desktop category
-        await homePage.navigateTo(specialHotPage.desktopCategoryLocator);
+        await commonFunctions.navigateTo(specialHotPage.desktopCategoryLocator);
         // Add a Product HTC Touch HD to Cart
         await specialHotPage.addAProductWithNameTo("HTC Touch HD", specialHotPage.productAddToCartButton);
         // Add to Cart popUp appeared

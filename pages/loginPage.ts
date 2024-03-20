@@ -10,7 +10,7 @@ export default class LoginPage {
     readonly passwordInputBox: string;
 
     constructor(public page: Page){
-    this.logOutButtonLocator = "//a[contains(.,'Logout')]";
+    this.logOutButtonLocator = "//*[@data-toggle='dropdown']/..//a[contains(.,'Logout')]";
     this.logInButtonLocator = "//span[text()[normalize-space()='Login']]";
     this.loginButtonFromLoginForm = "//input[@value='Login']";
     this.emailInputBox = "#input-email";
@@ -18,10 +18,10 @@ export default class LoginPage {
     }
     
     async login(email: string, password: string){
-        const homePage = new HomePage(this.page);
+        const commonFunctions = new CommonFunctions(this.page);
         await this.enterInputValue(this.emailInputBox, email);
         await this.enterInputValue(this.passwordInputBox, password);
-        await homePage.clickOn(this.loginButtonFromLoginForm)
+        await commonFunctions.clickOn(this.loginButtonFromLoginForm)
         expect(await this.page.title()).toBe("My Account")
     }
     async enterInputValue(selector: string, value: string) {
