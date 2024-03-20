@@ -7,3 +7,16 @@ export const specialHotURL = `${indexURL}route=product/special`
 export const blogURL = `${indexURL}route=extension/maza/blog/home`
 export const accountURL = `${indexURL}route=account/account`
 export const cartURL = `${indexURL}route=checkout/cart`
+export const registerURL = `${indexURL}route=account/register`
+export const forgottenURL = `${indexURL}route=account/forgotten`
+export const editAccountURL = `${indexURL}route=account/edit`
+export const passwordURL = `${indexURL}route=account/password`
+export const addressBookURL = `${indexURL}route=account/address`
+export const orderHistoryURL = `${indexURL}route=account/order`
+export const downloadsURL = `${indexURL}route=account/download`
+export const recurringPaymentsURL = `${indexURL}route=account/recurring`
+export const rewardPointsURL = `${indexURL}route=account/reward`
+export const returnsURL = `${indexURL}route=account/return`
+export const transactionURL = `${indexURL}route=account/transaction`
+export const newsletterURL = `${indexURL}route=account/newsletter`
+export const notificationURL = `${indexURL}route=extension/maza/account/notification/product`

@@ -1,7 +1,16 @@
 {
-    "firstName": "TestName",
-    "secondName": "TestName",
-    "email": "TestMail_09@gmail.com",
-    "phoneNumber": "12345678",
-    "password": "testPass"
-}
+    "validData": {
+      "firstName": "TestName",
+      "secondName": "TestName",
+      "email": "TestMail_07@gmail.com",
+      "phoneNumber": "12345678",
+      "password": "testPass"
+    },
+    "invalidData": {
+      "firstName": "InvalidName",
+      "secondName": "InvalidName",
+      "email": "InvalidMail_09@gmail.com",
+      "phoneNumber": "987654321",
+      "password": "invalidPass"
+    }
+  }
