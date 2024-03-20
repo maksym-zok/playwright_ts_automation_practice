@@ -32,18 +32,6 @@ export default class HomePage {
         this.footerLocator = "//footer[@class='footer']";
         this.wishlistLocator = page.locator("//a[@aria-label='Wishlist']");
     }
-    async clickOn(buttonLocator: string){
-        await Promise.all([
-            this.page.waitForNavigation(),
-            this.page.click(buttonLocator)
-        ])
-    }
-
-    async navigateTo(buttonLocator: Locator): Promise<void> {
-        await buttonLocator.waitFor({ state: 'attached' });
-        await buttonLocator.click();
-        await this.page.waitForLoadState('domcontentloaded');
-    }
 
     private async hasClass(locator: Locator, className: string): Promise<boolean> {
         const element = await locator;

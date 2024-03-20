@@ -35,4 +35,29 @@ export default class CommonFunctions {
             throw new Error(`${elementName} is absent`);
         }
     }
+
+    async clickOn(buttonLocator: string){
+        await Promise.all([
+            this.page.waitForNavigation(),
+            this.page.click(buttonLocator)
+        ])
+    }
+
+    async navigateTo(buttonLocator: Locator): Promise<void> {
+        await buttonLocator.waitFor({ state: 'attached' });
+        await buttonLocator.click();
+        await this.page.waitForLoadState('domcontentloaded');
+    }
+
+    async stringToLocator(selector: string): Promise<Locator> {
+        const variable = this.page.locator(selector);
+        console.log(variable);
+        return variable;
+    }
+
+    async locatorToString(locator: Locator): Promise<string> {
+        const variable = locator.toString();
+        const strippedString = variable.replace("locator('xpath=", "").slice(0, -2).replace(/\\/g, '');    
+        return strippedString;
+    }
 }
