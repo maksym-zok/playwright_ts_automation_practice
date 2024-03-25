@@ -8,11 +8,11 @@ test.afterEach(async({page, addToCartPage}) => {
 });
 
 test.describe("Basic Add to Cart actions", () => {
-    test("Add to cart test_01", async({page, loginPage, homePage, specialHotPage, addToCartPage, commonFunctions}) => {
+    test("Add to cart test_01", async({page, myAccountPage, homePage, specialHotPage, addToCartPage, commonFunctions}) => {
         // Open a Login page
         await page.goto(Var.loginURL);
         // Login
-        await loginPage.login(data.email, data.password);
+        await myAccountPage.login(data.validData.email, data.validData.password);
         // Navigate to Special Hot Menu Page
         await commonFunctions.navigateTo(homePage.specialHotMenuButtonLocator);
         // Click on Desktop category

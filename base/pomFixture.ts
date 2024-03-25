@@ -1,6 +1,6 @@
 import {test as baseTest} from "@playwright/test"
 import RegisterPage from '../pages/registerPage';
-import LoginPage from '../pages/loginPage';
+import MyAccountPage from '../pages/myAccountPage';
 import HomePage from '../pages/homePage';
 import SpecialHotPage from '../pages/specialHotPage';
 import WishListPage from '../pages/wishListPage'
@@ -8,7 +8,7 @@ import CommonFunctions from '../utils/commonFunctions'
 import AddToCartPage from '../pages/addToCartPage'
 
 type pages = {
-    loginPage: LoginPage;
+    myAccountPage: MyAccountPage;
     registerPage: RegisterPage;
     homePage: HomePage;
     specialHotPage: SpecialHotPage
@@ -21,8 +21,8 @@ const testPages = baseTest.extend<pages>({
     registerPage: async({page}, use) => {
         await use(new RegisterPage(page))
     },
-    loginPage: async({page}, use) => {
-        await use(new LoginPage(page))
+    myAccountPage: async({page}, use) => {
+        await use(new MyAccountPage(page))
     },
     homePage: async({page}, use) => {
         await use(new HomePage(page))

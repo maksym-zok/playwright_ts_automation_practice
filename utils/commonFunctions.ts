@@ -60,4 +60,8 @@ export default class CommonFunctions {
         const strippedString = variable.replace("locator('xpath=", "").slice(0, -2).replace(/\\/g, '');    
         return strippedString;
     }
+
+    async enterInputValue(selector: string, value: string) {
+        await this.page.fill(selector, value);
+    }
 }
