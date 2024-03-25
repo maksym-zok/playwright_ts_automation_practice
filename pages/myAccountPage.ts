@@ -57,15 +57,13 @@ export default class MyAccountPage {
     
     async login(email: string, password: string){
         const commonFunctions = new CommonFunctions(this.page);
-        await this.enterInputValue(this.emailInputBox, email);
-        await this.enterInputValue(this.passwordInputBox, password);
+        await commonFunctions.enterInputValue(this.emailInputBox, email);
+        await commonFunctions.enterInputValue(this.passwordInputBox, password);
         await commonFunctions.clickOn(this.loginButtonFromLoginForm)
     }
-    async enterInputValue(selector: string, value: string) {
-        await this.page.fill(selector, value);
-    }
+
     async verifyUserState(locator: string, expectedState: string) {
-        const homePage = new HomePage(this.page);
+        // const homePage = new HomePage(this.page);
         const commonFunctions = new CommonFunctions(this.page);
         const elementName = expectedState === 'loggedIn' ? 'Logout button' : 'Login button';
         const locatorToCheck = expectedState === 'loggedIn' ? locator : this.logInButtonLocator;

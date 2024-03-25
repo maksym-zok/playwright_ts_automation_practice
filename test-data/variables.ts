@@ -6,6 +6,7 @@ export const wishlistURL = `${indexURL}route=account/wishlist`
 export const specialHotURL = `${indexURL}route=product/special`
 export const blogURL = `${indexURL}route=extension/maza/blog/home`
 export const accountURL = `${indexURL}route=account/account`
+export const accountCreatedURL = `${indexURL}route=account/success`
 export const cartURL = `${indexURL}route=checkout/cart`
 export const registerURL = `${indexURL}route=account/register`
 export const forgottenURL = `${indexURL}route=account/forgotten`

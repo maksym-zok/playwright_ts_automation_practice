@@ -12,7 +12,6 @@ test("Login test", async({page, myAccountPage}) => {
 })
 
 test("Logout test", async({page, myAccountPage, commonFunctions, homePage}) => {
-    const selector = await commonFunctions.locatorToString(homePage.myAccountLocator);
     //Open a Login page
     await page.goto(Var.loginURL);
     // Login
@@ -20,7 +19,7 @@ test("Logout test", async({page, myAccountPage, commonFunctions, homePage}) => {
     //Verify that user is logged in
     expect (await page.waitForURL(Var.accountURL));
     //Hover on My account menu button
-    await page.hover(selector);
+    await page.hover(await commonFunctions.locatorToString(homePage.myAccountLocator));
     //Logout from account
     await commonFunctions.navigateTo(await (commonFunctions.stringToLocator(myAccountPage.logOutButtonLocator)));
     //Verify that user is logged out
