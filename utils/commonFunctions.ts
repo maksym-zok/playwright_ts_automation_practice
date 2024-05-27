@@ -64,4 +64,8 @@ export default class CommonFunctions {
     async enterInputValue(selector: string, value: string) {
         await this.page.fill(selector, value);
     }
+
+    async clickOptionByText(page: Page, selector: string, optionText: string): Promise<void> {
+        await page.selectOption(selector, { label: optionText });
+    }
 }

@@ -4,6 +4,7 @@ import MyAccountPage from '../pages/myAccountPage';
 import HomePage from '../pages/homePage';
 import SpecialHotPage from '../pages/specialHotPage';
 import WishListPage from '../pages/wishListPage'
+import CartCheckoutPage from '../pages/checkoutPage'
 import CommonFunctions from '../utils/commonFunctions'
 import AddToCartPage from '../pages/addToCartPage'
 
@@ -13,6 +14,7 @@ type pages = {
     homePage: HomePage;
     specialHotPage: SpecialHotPage
     wishListPage: WishListPage
+    cartCheckoutPage: CartCheckoutPage
     commonFunctions: CommonFunctions
     addToCartPage: AddToCartPage
 }
@@ -32,6 +34,9 @@ const testPages = baseTest.extend<pages>({
     },
     wishListPage: async({page}, use) => {
         await use(new WishListPage(page))
+    },
+    cartCheckoutPage: async({page}, use) => {
+        await use(new CartCheckoutPage(page))
     },
     commonFunctions: async({page}, use) => {
         await use(new CommonFunctions(page))
