@@ -9,6 +9,7 @@ export const blogURL = `${indexURLWithRoute}extension/maza/blog/home`
 export const accountURL = `${indexURLWithRoute}account/account`
 export const accountCreatedURL = `${indexURLWithRoute}account/success`
 export const cartURL = `${indexURLWithRoute}checkout/cart`
+export const checkoutSuccessURL = `${indexURLWithRoute}checkout/success`
 export const cartCheckoutURL = `${indexURLWithRoute}checkout/checkout`
 export const checkoutConfirmURL = `${indexURLWithRoute}extension/maza/checkout/confirm`
 export const registerURL = `${indexURLWithRoute}account/register`

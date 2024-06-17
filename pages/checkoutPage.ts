@@ -27,6 +27,9 @@ export default class CartCheckoutPage {
     readonly checkoutCartTableLocator
     readonly termsConditionCheckbox
     readonly continueLocator
+    readonly existingAddressLocator
+    readonly newAddressLocator
+
     constructor(private page: Page) {
         this.billingAddressTelephoneNumberLocator = "//input[@placeholder='Telephone']"
         this.billingAddressFirstNameLocator = "(//input[@placeholder='First Name'])[1]"
@@ -51,30 +54,51 @@ export default class CartCheckoutPage {
         this.checkoutCartTableLocator = "//div[@id='checkout-cart']"
         this.termsConditionCheckbox = page.locator("//label[@for='input-agree']")
         this.continueLocator = "//button[text()='Continue ']"
+        this.existingAddressLocator = "//input[@id='input-payment-address-existing']";
+        this.newAddressLocator = "//label[@for='input-payment-address-new']";
     }
 
-    // async removeAllItemsWithNameFromWishList(productName) {
-    //     const commonFunctions = new CommonFunctions(this.page)
-    //     await commonFunctions.performTableClickAction(`//a[contains(text(),'${productName}')]/../../td${this.removeItemFromWishListButton}`);
-    // }
-
-    async verifyElementPresenceInCheckout(productName){
-        const commonFunctions = new CommonFunctions(this.page)
-        await commonFunctions.verifyElementPresence(`${this.checkoutCartTableLocator}//a[contains(text(),'${productName}')]`, `${productName}`)
-    }
-    async enterBillingAddress(enterphoneNumber: string, enterFirstName: string, enterLastName: string, enterCompany: string,
-        enterAddress1: string, enterAddress2: string, enterCity: string, enterPostCode: string, enterCountry: string,
-        enterRegionName){
+    async verifyElementPresenceInCheckout(...productNames: string[]) {
         const commonFunctions = new CommonFunctions(this.page);
-        await commonFunctions.enterInputValue(this.billingAddressTelephoneNumberLocator, enterphoneNumber);
-        await commonFunctions.enterInputValue(this.billingAddressFirstNameLocator, enterFirstName);
-        await commonFunctions.enterInputValue(this.billingAddressLastNameLocator, enterLastName);
-        await commonFunctions.enterInputValue(this.billingAddressCompanyNameOptionalLocator, enterCompany);
-        await commonFunctions.enterInputValue(this.billingAddressAddress1_Locator, enterAddress1);
-        await commonFunctions.enterInputValue(this.billingAddressAddress2_OptionalLocator, enterAddress2);
-        await commonFunctions.enterInputValue(this.billingAddressCityLocator, enterCity);
-        await commonFunctions.enterInputValue(this.billingAddressPostCodeLocator, enterPostCode);
-        await commonFunctions.clickOptionByText(this.page, this.billingAddressCountryDropdownLocator, enterCountry);
-        await commonFunctions.clickOptionByText(this.page, this.billingAddressRegionLocator, enterRegionName);
+        for (const productName of productNames) {
+            await commonFunctions.verifyElementPresence(`${this.checkoutCartTableLocator}//a[contains(text(),'${productName}')]`, `${productName}`);
+        }
     }
+
+    async enterBillingAddress(
+        enterPhoneNumber?: string,
+        enterFirstName?: string,
+        enterLastName?: string,
+        enterCompany?: string,
+        enterAddress1?: string,
+        enterAddress2?: string,
+        enterCity?: string,
+        enterPostCode?: string,
+        enterCountry?: string,
+        enterRegionName?: string
+      ) {
+        const commonFunctions = new CommonFunctions(this.page);
+        const isExistingAddressPresent = await this.page.locator(this.existingAddressLocator).count() > 0;
+        const isNewAddressPresent = await this.page.locator(this.newAddressLocator).count() > 0;
+
+        if (isExistingAddressPresent && isNewAddressPresent) {
+          if (!enterPhoneNumber || !enterFirstName || !enterLastName || !enterCompany || !enterAddress1 || !enterAddress2 || !enterCity || !enterPostCode || !enterCountry || !enterRegionName) {
+            // If any required data is missing, do nothing
+            return;
+          }
+          // Click on the new address input if it exists
+          await this.page.locator(this.newAddressLocator).click();
+        }
+        // Proceed with filling the billing address
+        if (enterPhoneNumber) await commonFunctions.enterInputValue(this.billingAddressTelephoneNumberLocator, enterPhoneNumber);
+        if (enterFirstName) await commonFunctions.enterInputValue(this.billingAddressFirstNameLocator, enterFirstName);
+        if (enterLastName) await commonFunctions.enterInputValue(this.billingAddressLastNameLocator, enterLastName);
+        if (enterCompany) await commonFunctions.enterInputValue(this.billingAddressCompanyNameOptionalLocator, enterCompany);
+        if (enterAddress1) await commonFunctions.enterInputValue(this.billingAddressAddress1_Locator, enterAddress1);
+        if (enterAddress2) await commonFunctions.enterInputValue(this.billingAddressAddress2_OptionalLocator, enterAddress2);
+        if (enterCity) await commonFunctions.enterInputValue(this.billingAddressCityLocator, enterCity);
+        if (enterPostCode) await commonFunctions.enterInputValue(this.billingAddressPostCodeLocator, enterPostCode);
+        if (enterCountry) await commonFunctions.clickOptionByText(this.page, this.billingAddressCountryDropdownLocator, enterCountry);
+        if (enterRegionName) await commonFunctions.clickOptionByText(this.page, this.billingAddressRegionLocator, enterRegionName);
+      }
 }

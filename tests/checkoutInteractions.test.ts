@@ -2,7 +2,7 @@ import { expect, test, } from '../base/pomFixture';
 import * as data from "../test-data/addToCart-test-data.json";
 import * as Var from "../test-data/variables.ts"
 
-test("Checkout item when user is logged in", async({page, myAccountPage, homePage, specialHotPage, cartCheckoutPage, commonFunctions}) => {
+test("Checkout item when user is logged in", async({page, myAccountPage, homePage, specialHotPage, cartCheckoutPage, confirmOrderPage, commonFunctions}) => {
     // Open a Login page
     await page.goto(Var.loginURL);
     // Login
@@ -38,4 +38,10 @@ test("Checkout item when user is logged in", async({page, myAccountPage, homePag
     await page.click(cartCheckoutPage.continueLocator)
     // Redirected to Checkout Confirm page
     await expect(page).toHaveURL(Var.checkoutConfirmURL)
+    // Verify that item has beed added to the cart on Confirm Order Page
+    await confirmOrderPage.verifyElementPresenceInCheckoutConfirm("HTC Touch HD")
+    // Click Confirm Order button
+    await page.click(confirmOrderPage.confrimOrderLocator)
+    // Redirected to Order Success page
+    await expect(page).toHaveURL(Var.checkoutSuccessURL)
 })
