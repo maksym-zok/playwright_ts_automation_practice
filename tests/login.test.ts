@@ -32,7 +32,7 @@ test("Login test with invalid credentials", async({page, myAccountPage, commonFu
     //Login with invalid credentials
     await myAccountPage.login(data.invalidData.email, data.invalidData.password);
     //Verify that warning for invalid credentials appeared
-    expect (await commonFunctions.verifyElementPresence(myAccountPage.warningInvalidCredentials, 
+    expect (await commonFunctions.checkElementPresence(myAccountPage.warningInvalidCredentials, 
         "Warning: No match for E-Mail Address and/or Password."));
     //Verify that user is on the login page
     expect (await page.waitForURL(Var.loginURL));
@@ -46,7 +46,7 @@ test("Login test with invalid credentials for 5 times untill exceeded allowed nu
         await myAccountPage.login(data.invalidData.email, data.invalidData.password);
     }
     //Verify that account has exceeded allowed number of login attempts appeared
-    expect (await commonFunctions.verifyElementPresence(myAccountPage.warningExceededAllowedNumberOfLoginAttempts,
+    expect (await commonFunctions.checkElementPresence(myAccountPage.warningInvalidCredentials,
         "Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour."));
     //Verify that user is on the login page
     expect (await page.waitForURL(Var.loginURL));

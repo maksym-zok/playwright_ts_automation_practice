@@ -40,11 +40,18 @@ export default class SpecialHotPage {
 
     }
 
-    async addAProductWithNameTo(productName: string, to: string){
-        await this.page.hover(`${this.productCaption}//a[contains(text(), "${productName}")]/../../..${this.productImage}`);
-        await this.page.waitForLoadState('load');
-        await this.page.locator(`${this.productCaption}//a[contains(text(), "${productName}")]/../../..${to}`).nth(0).waitFor({state: "visible"});
-        await this.page.locator(`${this.productCaption}//a[contains(text(), "${productName}")]/../../..${to}`).nth(0).click();
+    async addAProductWithNameTo(to: string, ...productNames: string[]): Promise<void> {
+        for (const productName of productNames) {
+          // Hover over the product
+          await this.page.hover(`${this.productCaption}//a[contains(text(), "${productName}")]/../../..${this.productImage}`);
+          await this.page.waitForLoadState('load');
+          
+          // Click on the specified element 'to' (assuming it's a button or link)
+          const elementToClickLocator = `${this.productCaption}//a[contains(text(), "${productName}")]/../../..${to}`;
+          const elementToClick = await this.page.locator(elementToClickLocator).nth(0);
+          await elementToClick.waitFor({ state: 'visible' });
+          await elementToClick.click();
+        }
     }
 
     async isPopUpVisiable(popUpType: string){

@@ -20,22 +20,38 @@ export default class CommonFunctions {
         }
     }
     
-    async isElementPresent(locator: string, elementName: string): Promise<boolean> {
-        const elementLocator = await this.page.locator(locator);
+    private async isElementPresent(locator: string, elementName?: string): Promise<boolean> {
+        const elementLocator = this.page.locator(locator);
         const count = await elementLocator.count();
-        const isPresent = count > 0;
-        return isPresent;
-    }
-
-    async verifyElementPresence(locator: string, elementName: string): Promise<void> {
-        const isElementPresent = await this.isElementPresent(locator, elementName);
-        if (isElementPresent) {
-            console.log(`${elementName} is present`);
+        return count > 0;
+      }
+    
+    async checkElementPresence(locator: string, ...elementNames: string[]): Promise<void> {
+        await this.page.waitForLoadState('load');
+    
+        // Якщо не передано жодного елементу, перевіряємо лише locator
+        if (elementNames.length === 0) {
+          const isElementPresent = await this.isElementPresent(locator);
+          console.log(locator);
+          if (isElementPresent) {
+            console.log(`Element is present`);
+          } else {
+            throw new Error(`Element is absent`);
+          }
         } else {
-            throw new Error(`${elementName} is absent`);
+          // Якщо передано елементи, перевіряємо кожен з них
+          for (const elementName of elementNames) {
+            const fullLocator = `${locator}${elementName}')]`;
+            const isElementPresent = await this.isElementPresent(fullLocator, elementName);
+            console.log(fullLocator);
+            if (isElementPresent) {
+              console.log(`${elementName} is present`);
+            } else {
+              throw new Error(`${elementName} is absent`);
+            }
+          }
         }
-    }
-
+      }
     async clickOn(buttonLocator: string){
         await Promise.all([
             this.page.waitForNavigation(),

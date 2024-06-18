@@ -51,18 +51,11 @@ export default class CartCheckoutPage {
         this.shippingAddressPostCodeLocator = "(//input[@placeholder='Post Code'])[2]"
         this.shippingAddressCountryDropdownLocator = "//*[@name='shipping[country_id]']"
         this.shippingAddressRegionLocator = "//*[@name='shipping[zone_id]']"
-        this.checkoutCartTableLocator = "//div[@id='checkout-cart']"
+        this.checkoutCartTableLocator = "//div[@id='checkout-cart']//a[contains(text(),'"
         this.termsConditionCheckbox = page.locator("//label[@for='input-agree']")
         this.continueLocator = "//button[text()='Continue ']"
         this.existingAddressLocator = "//input[@id='input-payment-address-existing']";
         this.newAddressLocator = "//label[@for='input-payment-address-new']";
-    }
-
-    async verifyElementPresenceInCheckout(...productNames: string[]) {
-        const commonFunctions = new CommonFunctions(this.page);
-        for (const productName of productNames) {
-            await commonFunctions.verifyElementPresence(`${this.checkoutCartTableLocator}//a[contains(text(),'${productName}')]`, `${productName}`);
-        }
     }
 
     async enterBillingAddress(
