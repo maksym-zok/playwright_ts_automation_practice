@@ -34,7 +34,7 @@ export default class MyAccountPage {
     this.loginButtonFromLoginForm = "//input[@value='Login']";
     this.emailInputBox = "#input-email";
     this.passwordInputBox = "#input-password";
-    this.warningInvalidCredentials = "//div[text()=' Warning: No match for E-Mail Address and/or Password.']";
+    this.warningInvalidCredentials = "//div[contains(text(),'";
     this.warningExceededAllowedNumberOfLoginAttempts = "//div[text()=' Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.']";
     this.loginButtonFromMyAccountPage = page.locator("//a[contains(text(),'Login')]");
     this.registerButtonFromMyAccountPage = page.locator("//a[contains(text(),'Register')]");
@@ -62,11 +62,12 @@ export default class MyAccountPage {
         await commonFunctions.clickOn(this.loginButtonFromLoginForm)
     }
 
-    async verifyUserState(locator: string, expectedState: string) {
-        // const homePage = new HomePage(this.page);
-        const commonFunctions = new CommonFunctions(this.page);
-        const elementName = expectedState === 'loggedIn' ? 'Logout button' : 'Login button';
-        const locatorToCheck = expectedState === 'loggedIn' ? locator : this.logInButtonLocator;
-        await commonFunctions.verifyElementPresence(locatorToCheck, elementName);
-    }
+    async verifyUserState(expectedState: 'LoggedIn' | 'LoggedOut'): Promise<void> {
+        const commonFunctions = new CommonFunctions(this.page);    
+        if (expectedState === 'LoggedOut') {
+          await commonFunctions.checkElementPresence(this.logInButtonLocator);
+        } else if (expectedState === 'LoggedIn') {
+          await commonFunctions.checkElementPresence(this.logOutButtonLocator);
+        }
+      }
 }

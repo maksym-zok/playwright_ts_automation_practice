@@ -14,7 +14,7 @@ test.describe("Basic Wishlist actions", () => {
         // Login
         await myAccountPage.login(data.validData.email, data.validData.password);
         // Verify that user is logged in
-        await myAccountPage.verifyUserState(myAccountPage.logOutButtonLocator, 'loggedIn');
+        await myAccountPage.verifyUserState('LoggedIn');
         // User navigates to Wishlist page
         await commonFunctions.navigateTo(homePage.wishlistLocator);
     })
@@ -22,7 +22,7 @@ test.describe("Basic Wishlist actions", () => {
         // Open a Wishlist page
         await page.goto(Var.wishlistURL);
         // Verify that user is logged out
-        await myAccountPage.verifyUserState(myAccountPage.logInButtonLocator, 'loggedOut');
+        await myAccountPage.verifyUserState('LoggedOut');
         // User is redirected to Login page
         await expect(page).toHaveURL(Var.loginURL) ;
     })
@@ -36,12 +36,12 @@ test.describe("Basic Wishlist actions", () => {
         // Click on Desktop category
         await commonFunctions.navigateTo(specialHotPage.desktopCategoryLocator);
         // Add a Product HTC Touch HD to Wishlist
-        await specialHotPage.addAProductWithNameTo("HTC Touch HD", specialHotPage.productAddToWishListButton);
+        await specialHotPage.addAProductWithNameTo(specialHotPage.productAddToWishListButton, "HTC Touch HD");
         // Wishlist popUp appeared
         await specialHotPage.isPopUpVisiable(specialHotPage.wishListPopUpLocator);
         // Open a Wishlist page
         await page.goto(Var.wishlistURL);
         // Verify that item has beed added to the wishlist
-        await wishListPage.verifyElementPresenceInWishList("HTC Touch HD")
+        await commonFunctions.checkElementPresence(wishListPage.wishListItemsTable, "HTC Touch HD")
     });
 })

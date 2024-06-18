@@ -53,13 +53,13 @@ test("Verify Homepage Elements", async({page, homePage, commonFunctions}) =>{
     // Open a "Home" page
     await page.goto(Var.homeURL);
     // Verify the presence of the logo.
-    await commonFunctions.verifyElementPresence(homePage.logoSelector, 'Logo');
+    await commonFunctions.checkElementPresence(homePage.logoSelector);
     // Verify the visibility of the main menu.
-    await commonFunctions.verifyElementPresence(homePage.mainMenuLocator, 'Main Menu');
+    await commonFunctions.checkElementPresence(homePage.mainMenuLocator);
     // Check if the search bar is present.
-    await commonFunctions.verifyElementPresence(homePage.searchBarLocator, 'Search Bar');
+    await commonFunctions.checkElementPresence(homePage.searchBarLocator);
     // Check for the main block of the home page
-    await commonFunctions.verifyElementPresence(homePage.mainBlockLocator, 'Main Block');
+    await commonFunctions.checkElementPresence(homePage.mainBlockLocator);
     // Check if the footer is present.
-    await commonFunctions.verifyElementPresence(homePage.footerLocator, 'Footer');
+    await commonFunctions.checkElementPresence(homePage.footerLocator);
 })

@@ -4,7 +4,14 @@
       "secondName": "TestName",
       "email": "TestMail_07@gmail.com",
       "phoneNumber": "12345678",
-      "password": "testPass"
+      "password": "testPass",
+      "company": "Stark Industries",
+      "address1": "some address1",
+      "address2": "some address2",
+      "city": "Ternopil",
+      "postcode": "47721",
+      "country": "Ukraine",
+      "region": "Kyiv"
     },
     "invalidData": {
       "firstName": "InvalidName",

@@ -18,12 +18,12 @@ test.describe("Basic Add to Cart actions", () => {
         // Click on Desktop category
         await commonFunctions.navigateTo(specialHotPage.desktopCategoryLocator);
         // Add a Product HTC Touch HD to Cart
-        await specialHotPage.addAProductWithNameTo("HTC Touch HD", specialHotPage.productAddToCartButton);
+        await specialHotPage.addAProductWithNameTo(specialHotPage.productAddToCartButton, "HTC Touch HD");
         // Add to Cart popUp appeared
         await specialHotPage.isPopUpVisiable(specialHotPage.addToCartPopUpLocator);
         // Open a Cart page
         await page.goto(Var.cartURL);
         // Verify that item has beed added to the cart
-        await addToCartPage.verifyElementPresenceInCart("HTC Touch HD");
+        await commonFunctions.checkElementPresence(addToCartPage.cartItemsTable, "HTC Touch HD");
     })
 })
