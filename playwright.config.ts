@@ -9,6 +9,7 @@ import { defineConfig, devices } from '@playwright/test';
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+
 export default defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
@@ -21,7 +22,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
-        ['html', { open: 'never' }],
+        ['html', { open: 'never', outputFile: 'report/results.html'}],
     ],
   // reporter: [["html", {
   //   open: "on-failure"
@@ -33,7 +34,7 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    headless: true,
+    headless: false,
     video: "retain-on-failure"
   },
 
@@ -75,6 +76,9 @@ export default defineConfig({
     // },
   ],
 
+  /* Set global timeout for each test */
+  timeout: 60000 // 60 секунд
+  
   /* Run your local dev server before starting the tests */
   // webServer: {
   //   command: 'npm run start',

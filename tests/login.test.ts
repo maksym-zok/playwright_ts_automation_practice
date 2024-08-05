@@ -38,7 +38,7 @@ test("Login test with invalid credentials", async({page, myAccountPage, commonFu
     expect (await page.waitForURL(Var.loginURL));
 })
 
-test("Login test with invalid credentials for 5 times untill exceeded allowed number of login attempts", async({page, myAccountPage, commonFunctions}) => {
+test("Login test with invalid credentials for 2 times untill exceeded allowed number of login attempts", async({page, myAccountPage, commonFunctions}) => {
     //Open a Login page
     await page.goto(Var.loginURL);
     //Login with invalid credentials for 3 times
