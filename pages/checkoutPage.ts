@@ -29,6 +29,10 @@ export default class CartCheckoutPage {
     readonly continueLocator
     readonly existingAddressLocator
     readonly newAddressLocator
+    readonly guestAccountButtonLocator
+    readonly registeredAccountButtonLocator
+    readonly loginToAccountButtonLocator
+    readonly personalDetailsEmailLocator
 
     constructor(private page: Page) {
         this.billingAddressTelephoneNumberLocator = "//input[@placeholder='Telephone']"
@@ -51,11 +55,15 @@ export default class CartCheckoutPage {
         this.shippingAddressPostCodeLocator = "(//input[@placeholder='Post Code'])[2]"
         this.shippingAddressCountryDropdownLocator = "//*[@name='shipping[country_id]']"
         this.shippingAddressRegionLocator = "//*[@name='shipping[zone_id]']"
+        this.personalDetailsEmailLocator = "//input[@name='email']"
         this.checkoutCartTableLocator = "//div[@id='checkout-cart']//a[contains(text(),'"
         this.termsConditionCheckbox = page.locator("//label[@for='input-agree']")
         this.continueLocator = "//button[text()='Continue ']"
         this.existingAddressLocator = "//input[@id='input-payment-address-existing']";
         this.newAddressLocator = "//label[@for='input-payment-address-new']";
+        this.guestAccountButtonLocator = "//label[@for='input-account-guest']";
+        this.registeredAccountButtonLocator = "//label[@for='input-account-register']";
+        this.loginToAccountButtonLocator = "//label[@for='input-account-login']"
     }
 
     async enterBillingAddress(
@@ -68,7 +76,8 @@ export default class CartCheckoutPage {
         enterCity?: string,
         enterPostCode?: string,
         enterCountry?: string,
-        enterRegionName?: string
+        enterRegionName?: string,
+        enterEmail?: string
       ) {
         const commonFunctions = new CommonFunctions(this.page);
         const isExistingAddressPresent = await this.page.locator(this.existingAddressLocator).count() > 0;
@@ -90,6 +99,7 @@ export default class CartCheckoutPage {
         if (enterAddress1) await commonFunctions.enterInputValue(this.billingAddressAddress1_Locator, enterAddress1);
         if (enterAddress2) await commonFunctions.enterInputValue(this.billingAddressAddress2_OptionalLocator, enterAddress2);
         if (enterCity) await commonFunctions.enterInputValue(this.billingAddressCityLocator, enterCity);
+        if (enterEmail) await commonFunctions.enterInputValue(this.personalDetailsEmailLocator, enterEmail);
         if (enterPostCode) await commonFunctions.enterInputValue(this.billingAddressPostCodeLocator, enterPostCode);
         if (enterCountry) await commonFunctions.clickOptionByText(this.page, this.billingAddressCountryDropdownLocator, enterCountry);
         if (enterRegionName) await commonFunctions.clickOptionByText(this.page, this.billingAddressRegionLocator, enterRegionName);

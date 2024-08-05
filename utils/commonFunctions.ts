@@ -54,7 +54,6 @@ export default class CommonFunctions {
       }
     async clickOn(buttonLocator: string){
         await Promise.all([
-            this.page.waitForNavigation(),
             this.page.click(buttonLocator)
         ])
     }
